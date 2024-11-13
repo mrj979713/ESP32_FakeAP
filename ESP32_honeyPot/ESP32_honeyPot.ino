@@ -11,7 +11,10 @@
 #define ACTIVE_LED 2
 
 const byte DNS_PORT = 53;
-const char* ssid     = "MTN-wifi";
+const char* ssid    = "MTN-wifi";
+
+//IPAddress gateway(192,168,1,1);
+IPAddress subnet(255,255,255,0);
 
 const char* htmlPage = R"=====(
 <!DOCTYPE html>
@@ -164,10 +167,9 @@ DNSServer dnsserver;
 
 
 void setup() {
+  Serial.begin(115200);
   delay(3000);
 
-  Serial.begin(115200);
-  Serial.println();
   Serial.println("Configuring wifi access point.....");
 
   pinMode(CLIENT_LED, OUTPUT);
