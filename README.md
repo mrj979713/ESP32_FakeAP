@@ -15,6 +15,6 @@ Las datos proporcionados se almacenarán en una _tarjeta SD_ o serán transferid
 * Archivo fuente de la página submit [thanksPage.html](/thanksPage.html)
 * En la caperta [tools](/tools) estarán todos los recursos externos necesarios. <br>
 Como pueder ser los [iconos](/tools/icons) para las paginas web.
-<img src="/tools/icons/facebook-2020-2-1.svg">
-<img src="/tools/icons/instagram-icon.svg">
-<img src="/tools/icons/X_logo_2023_original.svg">
+<img height= 50 src="/tools/icons/facebook-2020-2-1.svg" width=50/>
+<img height= 50 src="/tools/icons/instagram-icon.svg" width=50/>
+<img height= 50 src="/tools/icons/X_logo_2023_original.svg" width=50/>
