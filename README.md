@@ -16,3 +16,16 @@ Las datos proporcionados se almacenarán en una _tarjeta SD_ o serán transferid
 * En la caperta [tools](/tools) estarán todos los recursos externos necesarios. <br>
 Como pueder ser los [iconos](/tools/icons) para las paginas web. <br>
 <img height= 50 src="/tools/icons/facebook-2020-2-1.svg" width=50/> <img height= 50 src="/tools/icons/instagram-icon.svg" width=50/> <img height= 50 src="/tools/icons/X_logo_2023_original.svg" width=50/>
+
+### Componentes
+#### Físicos
+* Dos placas ESP32 (un punto de acceso y un servidor)
+* Dos leds (una para comprobar que el punto de acceso esté activo y el otro para notificar cuando se conecta un nuevo host)
+* Dos baterías para hacer <br>
+
+#### Librerias externas
+* WiFi.h
+* WiFiAP.h
+* WebSever.h
+* DNSServer.h
+* HTTPClient.h
