@@ -1,0 +1,10 @@
+#IDE specific files
+#vscode
+.vscode
+CMakePresets.json
+out
+build
+
+#clion
+cmake-build-debug
+.idea

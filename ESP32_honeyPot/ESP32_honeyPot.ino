@@ -8,11 +8,13 @@
 #include <WebServer.h>
 #include <DNSServer.h>
 
+//manejar los archivos
+#include <SDFiles.h>
+
 //estos pueden ser utiles si se decide implementar comunicación entre placas
 #include <HTTPClient.h>
 #include <NetworkClientSecure.h>
 #include <NetworkClient.h>
-
 
 //definir pines para los LED
 #define CLIENT_LED 5
@@ -191,15 +193,17 @@ const char *thankYouPage = R"=====(
 </html>
 )=====";
 
+File logginPage;
+File endPage;
 
 void setup() {
   Serial.begin(115200);
   delay(3000);
 
-  Serial.println("Configurando el punto de acceso.....");
-
+  sdfiles::sdinit();
   pinMode(CLIENT_LED, OUTPUT);
   pinMode(ACTIVE_LED, OUTPUT);
+  Serial.println("Configurando el punto de acceso.....");
 
   //se crea un punto de acceso con el nombre declarado más arriba
   if(!WiFi.softAP(ssid)) //está función accepta un segundo parametro opcional que será la contraseña del wifi
@@ -304,6 +308,9 @@ void loop() {
 void handleRoot() {
   //se envia una respueta con la primera pagina a cada solicitud de conexión
   server.send(200, "text/html", htmlPage);
+  digitalWrite(CLIENT_LED, HIGH);
+  delay(2000);
+  digitalWrite(CLIENT_LED, LOW);
 }
 
 /***********************************************************************************
