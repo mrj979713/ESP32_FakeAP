@@ -12,23 +12,35 @@
 #ifndef FAKEAPLIB_LIB
 #define FAKEAPLIB_LIB
 
-#include <Arduino.h>
-#include <WiFi.h>
-#include <WiFiAP.h>
-#include <WebServer.h>
-#include <DNSServer.h>
-#include <SD_MMC.h>
-#include <FS.h>
+#include "./include/SDCardManager.h"
+#include "./include/WebServerHandler.h"
+#include "./include/Authentication.h"
+#include "./include/include.h"
 
-#define AUTHPAGE "/webpages/authentication.htm"
-#define THKSPAGE "/webpages/thanksPage.htm"
-#define DATAFILE "/data/data.txt"
+#define WITH_ERROR_TYPE true
+
+class FakeAp : public WebServerManager
+{
+protected:
+    AuthenticationManager m_authManager;
+    SDCardManager         m_sdManager;
+    WebServerManager      m_server;
+
+public:
+    FakeAp()
+        :m_authManager{AuthenticationManager()}, m_sdManager{SDCardManager()}, m_server{WebServerManager(m_sdManager, m_authManager)}
+    {
+    }
+
+    bool initialize(const String &ssid, const String &psw = "\0");
+    bool setWifi(const String& wifissid, const String& wifipsw="\0");
+};
+
 
 namespace sdfiles
 {
     char* getCardType (uint8_t card);
-
-    void sdinit();
+    bool sdinit();
 
     void listDir(fs::FS &fs, const char * dirname, uint8_t levels);
     void createDir(fs::FS &fs, const char * path);
@@ -46,52 +58,21 @@ namespace fakeap
 {
     extern WebServer _server;
     extern DNSServer _dnsserver;
-    extern const char* authPage_;
-    extern const char* thksPage_;
-    extern const char* datafile_;
 
-    void apinit(const char* &ssid, const byte &DNS_PORT);
+    extern String _wifissid;
+    extern String _wifipsw;
 
+    extern String authPage_;
+    extern String thksPage_;
+    extern String adminPage_;
+    extern String datafile_;
+
+    bool apinit(const char* &ssid, const byte& dns_port, const char* psw="\0");
+    bool wifiInit (const char* ssid, const char* psw="\0");
+    void setPath(const char* path, FileType_t fileType);
     void handleRoot();
     void handleSubmit();
+    void handleAdmin();
 }
 
-class FakeAp
-{
-public:
-    FakeAp(){};
-    FakeAp(const char* ssid)
-        : _ssid{std::move(ssid)}
-    {
-
-    }
-    FakeAp(const char* ssid, const char* psw)
-        : _ssid{std::move(ssid)}, _psw{std::move(psw)}
-    {
-
-    }
-    FakeAp(const char* ssid, const char* psw, IPAddress ipaddr)
-        : _ssid{std::move(ssid)}, _psw{std::move(psw), _ipaddress{std::move(ipaddr)}}
-    {
-
-    }
-
-protected:
-    const char* _ssid,
-                _psw;
-    IPAddress   _ipaddress
-};
-
-#endif
-
-#ifndef SD_MMC_CMD
-#define SD_MMC_CMD 15
-#endif
-
-#ifndef SD_MMC_CLK
-#define SD_MMC_CLK 14
-#endif
-
-#ifndef SD_MMC_D0 
-#define SD_MMC_D0 2
 #endif
