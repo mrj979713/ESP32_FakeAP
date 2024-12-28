@@ -8,10 +8,8 @@
 #######################################
 
 handleSubmit	KEYWORD2
-apinit		KEYWORD2
-wifiInit	KEYWORD2
 testFileIO	KEYWORD2
-AuthenticationManager KEYWORD1
+AuthenticationManager   KEYWORD1
 
 
 #######################################
@@ -25,6 +23,7 @@ FakeAPlib	KEYWORD3
 # Datatypes (KEYWORD1)
 #######################################
 
+FileType_t  KEYWORD1
 FakeAp	KEYWORD1
 SDCardManager	KEYWORD1
 WebServerManager	KEYWORD1
@@ -35,12 +34,14 @@ WebServerManager	KEYWORD1
 #######################################
 
 # Comon methods/functions
-initialize	KEYWORD2
+getCurrentTime  KEYWORD2
 
 # FakeAp class
+initialize	KEYWORD2
 setWifi KEYWORD2
 
 # WebServerManager class
+start   KEYWORD2
 process KEYWORD2
 setPath		KEYWORD2
 handleRoot	KEYWORD2
@@ -53,6 +54,7 @@ setupCaptivePortal  KEYWORD2
 handleWiFiConfig    KEYWORD2
 
 # SDCardManager class
+initialize	KEYWORD2
 logEvent    KEYWORD2
 listDir		KEYWORD2
 createDir	KEYWORD2
@@ -66,9 +68,9 @@ getCardType KEYWORD2
 getFileSystem   KEYWORD2
 
 # AuthenticationManager
-hashPassword KEYWORD2
+hashPassword    KEYWORD2
 validateSocialLogin KEYWORD2
-validateAdminCredentials KEYWORD2
+validateAdminCredentials    KEYWORD2
 
 
 #######################################
@@ -107,3 +109,16 @@ ERROR_FILE_DELETE   LITERAL1
 ERROR_DIR_CREATE    LITERAL1
 ERROR_DIR_DELETE    LITERAL1
 ERROR_WIFIAP_CREATE LITERAL1
+
+# Success messages
+SUCCESS_SD_INIT LITERAL1
+SUCCESS_FILE_OPEN   LITERAL1
+SUCCESS_FILE_WRITE  LITERAL1
+SUCCESS_FILE_RENAME LITERAL1
+SUCCESS_FILE_DELETE LITERAL1
+SUCCESS_DIR_CREATE  LITERAL1
+SUCCESS_DIR_DELETE  LITERAL1
+SUCCESS_WIFIAP_INIT LITERAL1
+SUCCESS_WIFISTA_CONECT  LITERAL1
+SUCCESS_SERVER_INIT LITERAL1
+SUCCESS_LOG_EVENT   LITERAL1

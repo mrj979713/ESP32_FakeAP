@@ -29,7 +29,7 @@ ESP32_FakeAP/
 │   │       └── fake_access_point.ino
 │   │
 │   ├── src/
-│   |   ├── include/
+│   │   ├── include/
 │   │   │   ├── Authentication.h
 │   │   │   ├── include.h
 │   │   │   ├── SDCardManager.h
@@ -51,7 +51,7 @@ ESP32_FakeAP/
 │   │
 │   └── login-pages/
 │       ├──
-|       └── 
+│       └── 
 │ 
 ├── webpages/
 │   ├── admin.html
