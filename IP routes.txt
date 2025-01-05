@@ -1,0 +1,16 @@
+server's routes: IP 10.10.1.1
+
+- require credentials
+root:  http://10.10.1.1/ -> handleAdminLogin, HTTP_GET
+admin panel: http://10.10.1.1/admin-panel -> handleAdminPanel, HTTP_POST
+credentials saving: http://10.10.1.1/submit-credentials
+
+- responses
+login: http://10.10.1.1/get-login-page
+Facebook: file
+Google: file
+Twitter: file
+Instagram: file
+
+
+captive portal requests: 

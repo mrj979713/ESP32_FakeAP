@@ -1,18 +1,22 @@
-function loginWith(platform) {
+function loginWith(platform)
+{
     // Implement OAuth logic
-    console.log(`Logging in with ${platform}`);
+    window.location.href = "/login?platform=" + platform;
 }
 
-function showEmailVerification() {
+function showEmailVerification()
+{
     document.getElementById('emailModal').style.display = 'flex';
 }
 
-function closeEmailModal() {
+function closeEmailModal()
+{
     document.getElementById('emailModal').style.display = 'none';
 }
 
 
-function emailValidate() {
+function emailValidate()
+{
     var elem = document.getElementById('emailToVerify');
     var txt = elem.textContent || elem.innerText;
 

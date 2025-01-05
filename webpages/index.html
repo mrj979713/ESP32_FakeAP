@@ -1,23 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./style.css">
-  <title>Welcome to Captive Portal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi Portal - Secure Access</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
-<body>
-  <header>
-    <h1>Welcome to ESP32 WiFi</h1>
-    <p>Your secure gateway to the internet</p>
-  </header>
-  <main>
-    <h2>Connect to the Network</h2>
-    <p>To access the internet, click the button below to log in.</p>
-    <a href="login.html" class="btn">Login</a>
-  </main>
-  <footer>
-    <p>ESP32 Captive Portal &copy; 2024</p>
-  </footer>
+<body class="bg-gray-100">
+    <div class="container login-card">
+        <div class="logo">
+            <img src="icons/public-wifi-5403_128.gif" alt="WiFi Portal Logo" class="mb-6 shadow-lg">
+        </div>
+        
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Welcome to MTN WiFi</h1>
+        <p class="text-gray-600 mb-6 text-center">
+            Connect securely using your preferred social network
+        </p>
+
+        <div class="login-methods">
+            <button class="login-button social-login" onclick="loginWith('facebook')">
+                <img src="icons/icons8-facebook-48.svg" alt="Facebook">
+                Continue with Facebook
+            </button>
+            
+            <button class="login-button social-login" onclick="loginWith('twitter')">
+                <img src="icons/icons8-twitterx-48.svg" alt="Twitter">
+                Continue with Twitter
+            </button>
+            
+            <button class="login-button social-login" onclick="loginWith('instagram')">
+                <img src="icons/icons8-instagram-48.svg" alt="Instagram">
+                Continue with Instagram
+            </button>
+
+            <button class="login-button social-login" onclick="loginWith('google')">
+                <img src="icons/icons8-google-48.svg" alt="Google">
+                Continue with Google
+            </button>
+        </div>
+
+        <div class="mt-6 text-center">
+            <a href="#" class="text-blue-500 hover:underline" onclick="showEmailVerification()">
+                Or verify with email
+            </a>
+        </div>
+    </div>
+
+    <div id="emailModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEmailModal()">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">Email Verification</h2>
+            <input 
+                type="email" 
+                placeholder="Enter your email" 
+                class="w-full p-3 border rounded-lg mb-4"
+            >
+            <button id="emailToVerify" class="w-full bg-blue-500 text-white p-3 rounded-lg" onclick="emailValidate()">
+                Send Verification Code
+            </button>
+        </div>
+    </div>
+
+    <script src="application.js">
+        /*function loginWith(platform) {
+            // Implement OAuth logic
+            console.log(`Logging in with ${platform}`);
+        }
+
+        function showEmailVerification() {
+            document.getElementById('emailModal').style.display = 'flex';
+        }
+
+        function closeEmailModal() {
+            document.getElementById('emailModal').style.display = 'none';
+        }*/
+        
+        // Initialize Feather Icons
+        feather.replace();
+    </script>
 </body>
 </html>
